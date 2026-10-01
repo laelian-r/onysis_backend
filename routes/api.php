@@ -16,14 +16,11 @@ Route::post('/logout', [UsersController::class, "logout"])->middleware('auth:san
 Route::post('/forgot-password', [UsersController::class, 'forgotPassword']);
 Route::post('/reset-password', [UsersController::class, 'resetPassword']);
 
-
-// Routes publiques (Accessibles sans authentification)
-Route::get('/releases', [ReleasesController::class, 'index']);
-Route::get('/releases/{release}', [ReleasesController::class, 'show']);
-
 // Routes protégées (Utilisateur connecté requis)
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/releases', [ReleasesController::class, 'index']);
     Route::post('/releases', [ReleasesController::class, 'store']);
+    Route::get('/releases/{release}', [ReleasesController::class, 'show']);
     Route::put('/releases/{release}', [ReleasesController::class, 'update']); // ou Route::patch
     Route::delete('/releases/{release}', [ReleasesController::class, 'destroy']);
 });

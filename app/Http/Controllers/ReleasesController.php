@@ -11,9 +11,12 @@ class ReleasesController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Release::with('user:id,name')->latest()->get();
+        return Release::with('user:id,name')
+            ->where('user_id', $request->user()->id)
+            ->latest()
+            ->get();
     }
 
     /**
@@ -21,7 +24,7 @@ class ReleasesController
      */
     public function store(ReleaseRequest $request)
     {
-        $release = $request->user()->articles()->create($request->validated());
+        $release = $request->user()->releases()->create($request->validated());
 
         return response($release, 201);
     }
@@ -30,9 +33,9 @@ class ReleasesController
      * Display the specified resource.
      * On met le type string devant $id parce que, par défaut, Laravel extrait les paramètres de l'URL sous forme de strings, même s'il s'agit d'entiers
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        $release = Release::with('user:id,name')->find($id);
+        $release = Release::with('user:id,name')->where('user_id', $request->user()->id)->find($id);
 
         if (!$release) {
             return response()->json(['message' => "Cette sortie n'existe pas"], 404);
