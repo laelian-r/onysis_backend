@@ -24,7 +24,7 @@ Duplicated constraints:
 
 ```php
 $active = User::where('verified', true)->whereNotNull('activated_at')->get();
-$articles = Article::whereHas('user', function ($q) {
+$releases = Article::whereHas('user', function ($q) {
     $q->where('verified', true)->whereNotNull('activated_at');
 })->get();
 ```
@@ -40,7 +40,7 @@ protected function active(Builder $query): Builder
 
 // Usage
 $active = User::active()->get();
-$articles = Article::whereHas('user', fn ($q) => $q->active())->get();
+$releases = Article::whereHas('user', fn ($q) => $q->active())->get();
 ```
 
 ## Apply Global Scopes Sparingly
