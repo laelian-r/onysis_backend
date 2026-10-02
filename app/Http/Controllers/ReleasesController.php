@@ -13,7 +13,7 @@ class ReleasesController
      */
     public function index(Request $request)
     {
-        return Release::with('user:id,name')
+        return Release::with(['user:id,name', 'type:id,type'])
             ->where('user_id', $request->user()->id)
             ->latest()
             ->get();
@@ -26,7 +26,7 @@ class ReleasesController
     {
         $release = $request->user()->releases()->create($request->validated());
 
-        return response($release, 201);
+        return response($release->load(['user:id,name', 'type:id,type']), 201);
     }
 
     /**
@@ -35,7 +35,9 @@ class ReleasesController
      */
     public function show(string $id, Request $request)
     {
-        $release = Release::with('user:id,name')->where('user_id', $request->user()->id)->find($id);
+        $release = Release::with(['user:id,name', 'type:id,type'])
+            ->where('user_id', $request->user()->id)
+            ->find($id);
 
         if (!$release) {
             return response()->json(['message' => "Cette sortie n'existe pas"], 404);

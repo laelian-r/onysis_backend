@@ -23,7 +23,7 @@ class ReleaseRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'content' => 'required|string|max:500',
+            'type_id' => ['required', 'integer', 'exists:types,id'],
         ];
     }
 }

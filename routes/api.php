@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReleasesController;
 use App\Http\Controllers\UsersController;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,12 @@ Route::post('/logout', [UsersController::class, "logout"])->middleware('auth:san
 
 Route::post('/forgot-password', [UsersController::class, 'forgotPassword']);
 Route::post('/reset-password', [UsersController::class, 'resetPassword']);
+
+Route::get('/types', function () {
+    return Type::query()
+        ->select('id', 'type')
+        ->get();
+});
 
 // Routes protégées (Utilisateur connecté requis)
 Route::middleware('auth:sanctum')->group(function () {
