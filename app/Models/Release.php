@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Release extends Model
 {
-    protected $fillable = ['user_id', 'title', 'type_id'];
+    protected $fillable = ['user_id', 'title', 'type_id', 'number_songs', 'release_date', 'budget'];
 
     public function user()
     {

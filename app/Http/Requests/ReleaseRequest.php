@@ -24,6 +24,9 @@ class ReleaseRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'type_id' => ['required', 'integer', 'exists:types,id'],
+            'number_songs' => 'required|integer|min:1',
+            'release_date' => 'required|date',
+            'budget' => 'nullable|numeric|min:0',
         ];
     }
 }

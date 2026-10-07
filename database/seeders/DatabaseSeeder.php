@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         // Article::factory()->count(5)->create();
-        foreach (['Single', 'EP', 'Album', 'Mixtape', 'Compilation', 'Live', 'Remix'] as $name) {
+        foreach (['Single', 'EP', 'Album', 'Mixtape', 'Compilation', 'Live'] as $name) {
             Type::firstOrCreate(['type' => $name]);
         }
 
